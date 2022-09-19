@@ -1,93 +1,12 @@
 <?php
 session_start();
+include 'database/database.php';
 include 'app/selection.php';
 include 'app/save.php';
 include 'app/delete.php';
 include 'app/search.php';
 include 'app/edit.php';
 include 'app/update.php';
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_manager";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-//Delete logic
-
-if(isset($_GET['delete'])){
-    $id = $_GET['delete'];
-    $sql_delete = "DELETE FROM " . $table_name . " WHERE id = " . $id;
-    $stmt = $conn->prepare($sql_delete);
-    $stmt->execute();
-    
-    $_SESSION['message'] = "Record has been deleted";
-    $_SESSION['msg_type'] = "danger";
-
-    $stmt->close();
-    mysqli_close($conn);
-    header("Location: " . strtok($_SERVER['REQUEST_URI'], '&'));
-    exit;
-}
-
-//Update logic
-
-$update = false;
-
-if (isset($_GET['edit'])) {
-    $id = $_GET['edit'];
-    $update = true;
-    $result = $conn->query("SELECT * FROM " . $table_name . " WHERE " . $table_name . ".id=$id") or die($conn->error);
-    if (count(array($result))==1){
-        $row = $result->fetch_array();
-        $first_en = $row['name'];
-    }
-}
-
-// Save logic
-
-if (isset($_POST['save'])) {
-
-    $sql_save = "INSERT INTO " . $table_name . " (`name`) VALUES (?)";
-    $stmt = $conn->prepare($sql_save);
-    $stmt->bind_param("s", $_POST['name']);
-    $stmt->execute();
-    
-    $_SESSION['message'] = "Record has been saved";
-    $_SESSION['msg_type'] = 'success';
-   
-    $stmt->close();
-    mysqli_close($conn);
-    header("Location: " . strtok($_SERVER['REQUEST_URI'], '&')); 
-
-    die();
-}
-
-//Search logic
-
-if (isset($_POST['search1'])) {
-    if ($_GET['path'] == 'employees' || $_GET['path'] == "") {
-
-        $search_term = $conn->real_escape_string($_POST['search_box']);
-        $sql_search = "SELECT employees.id, employees.name, projects.name FROM employees LEFT JOIN projects ON employees.project_id = projects.id WHERE employees.name LIKE '%$search_term%'";
-        $stmt = $conn->prepare($sql_search);
-
-        $stmt->bind_result($id, $first_en, $second_en);
-
-    } else {
-        $search_term = $conn->real_escape_string($_POST['search_box']);
-        $sql_search = "SELECT projects.id, projects.name, employees.name FROM projects LEFT JOIN employees ON employees.project_id = projects.id WHERE projects.name LIKE '%$search_term%'";
-        $stmt = $conn->prepare($sql_search);
-        $stmt->bind_result($id, $first_en, $second_en); //binding by position
-    }
-} else {
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_result($id, $first_en, $second_en);
-}
 
 ?>
 
