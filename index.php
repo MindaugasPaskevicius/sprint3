@@ -17,7 +17,8 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-#DELETE
+//Delete logic
+
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
     $sql_delete = "DELETE FROM " . $table_name . " WHERE id = " . $id;
@@ -33,6 +34,8 @@ if(isset($_GET['delete'])){
     exit;
 }
 
+//Update logic
+
 $update = false;
 
 if (isset($_GET['edit'])) {
@@ -43,6 +46,47 @@ if (isset($_GET['edit'])) {
         $row = $result->fetch_array();
         $first_en = $row['name'];
     }
+}
+
+// Save logic
+
+if (isset($_POST['save'])) {
+
+    $sql_save = "INSERT INTO " . $table_name . " (`name`) VALUES (?)";
+    $stmt = $conn->prepare($sql_save);
+    $stmt->bind_param("s", $_POST['name']);
+    $stmt->execute();
+    
+    $_SESSION['message'] = "Record has been saved";
+    $_SESSION['msg_type'] = 'success';
+   
+    $stmt->close();
+    mysqli_close($conn);
+    header("Location: " . strtok($_SERVER['REQUEST_URI'], '&')); 
+
+    die();
+}
+
+//Search logic
+
+if (isset($_POST['search1'])) {
+    if ($_GET['path'] == 'employees' || $_GET['path'] == "") {
+
+        $search_term = $conn->real_escape_string($_POST['search_box']);
+        $sql_search = "SELECT employees.id, employees.name, projects.name FROM employees LEFT JOIN projects ON employees.project_id = projects.id WHERE employees.name LIKE '%$search_term%'";
+        $stmt = $conn->prepare($sql_search);
+
+        $stmt->bind_result($id, $first_en, $second_en);
+
+    } else {
+        $search_term = $conn->real_escape_string($_POST['search_box']);
+        $sql_search = "SELECT projects.id, projects.name, employees.name FROM projects LEFT JOIN employees ON employees.project_id = projects.id WHERE projects.name LIKE '%$search_term%'";
+        $stmt = $conn->prepare($sql_search);
+        $stmt->bind_result($id, $first_en, $second_en); //binding by position
+    }
+} else {
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_result($id, $first_en, $second_en);
 }
 
 ?>
