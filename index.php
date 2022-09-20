@@ -8,6 +8,7 @@ include 'app/search.php';
 include 'app/edit.php';
 include 'app/update.php';
 
+
 ?>
 
 <!DOCTYPE html>
@@ -21,45 +22,23 @@ include 'app/update.php';
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
-    <?php
-
-    if (isset($_SESSION['message'])) : ?>
-        <div class="alert mr-2 ml-2 alert-<?= $_SESSION['msg_type'] ?>">
-            <?php
-            echo $_SESSION['message'];
-            unset($_SESSION['message']);
-            ?>
-        </div>
-    <?php endif ?>
-
     <header>
-        <div>
-            <div>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <div>
-                            <div class="dropdown mr-5 ">
-                                <button class="btn btn-primary dropdown-toggle pr-4 pl-4" type="button" data-toggle="dropdown">Manage Table
-                                    <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <div class="d-flex flex-column justify-content-center align-items-center">
-                                        <li class="mt-2"><a href="?path=projects">Projects</a></li>
-                                        <li class="mt-2 mb-2"><a href="?path=employees">Employees</a></li>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="float-end align-middle"><span class="align-middle text-primary ">PROJECT MANAGER</span></div>
-                </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse">
+                <div class="nav-button">
+                    <span>
+                        <li><a class="ms-5" href="?path=projects">Projects</a></li>
+                        <li><a href="?path=employees">Employees</a></li>
+                    </span>
+                </div>
             </div>
-        </div>
+            <div class="float-end align-middle"><span class="align-middle text-primary ">PROJECT MANAGER</span></div>
+        </nav>
     </header>
+   
 
     <main>
         <div class="container mt-5">
@@ -68,21 +47,21 @@ include 'app/update.php';
                 <form action="<?php ($_SERVER['REQUEST_URI']); ?>" method="post">
                     <?php if ($_GET['path'] == "employees" || $_GET['path'] == "") : ?>
                         <div class="form-group">
-                            <label for="name"><?php echo (($update == true) ? ("<strong>Edit Employee</strong>") : ("<strong>Add Employee</strong>")); ?></label>
+                            <label for="name"><?php print (($update == true) ? ("<strong>Edit Employee</strong>") : ("<strong>Add Employee</strong>")); ?></label>
                             <div class="form-group d-flex">
-                                <input type="text" class="form-control" name="name" value="<?php echo ($update == true ? $first_en : ""); ?>" placeholder="Enter employee's name">
+                                <input type="text" class="form-control" name="name" value="<?php print ($update == true ? $first_en : ""); ?>" placeholder="Enter employee's name">
 
                                 <?php
 
                                 if ($update) {
                                     $query = "SELECT projects.id, projects.name FROM projects";
                                     $res = mysqli_query($conn, $query) or die(mysqli_connect_error($query));
-                                    echo ("<select class='ml-5 custom-select' name='select_name'>");
-                                    echo ("<option value=''selected disabled>Projects</option>");
+                                    print ("<select class='ml-5 custom-select' name='select_name'>");
+                                    print ("<option value=''selected disabled>Projects</option>");
                                     while ($row = mysqli_fetch_array($res)) {
-                                        echo "<option value=" . $row['id'] . ">" . $row['name'] . "</option>";
+                                        print "<option value=" . $row['id'] . ">" . $row['name'] . "</option>";
                                     }
-                                    echo ("</select>");
+                                    print ("</select>");
                                 }
                                 ?>
                             </div>
@@ -90,8 +69,8 @@ include 'app/update.php';
                         </div>
                     <?php else : ?>
                         <div class="form-group">
-                            <label for="name"><?php echo (($update == true) ? ("<strong>Edit Project</strong>") : ("<strong>Add Project</strong>")); ?></label>
-                            <input type="text" class="form-control" value="<?php echo ($update == true ? $first_en : ""); ?>" name="name" placeholder="Enter project's name">
+                            <label for="name"><?php print (($update == true) ? ("<strong>Edit Project</strong>") : ("<strong>Add Project</strong>")); ?></label>
+                            <input type="text" class="form-control" value="<?php print ($update == true ? $first_en : ""); ?>" name="name" placeholder="Enter project's name">
                         </div>
                     <?php endif; ?>
 
@@ -132,7 +111,7 @@ include 'app/update.php';
             print('<br />');
             print('<br />');
         } else {
-            echo ("<tr>
+            print ("<tr>
         <td>No data found</td></tr>");
             print('</table>');
         }

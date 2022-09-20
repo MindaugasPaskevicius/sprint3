@@ -1,9 +1,23 @@
+ * {
+  box-sizing: border-box;
+ }
+  
   .body-content {
     background-color: white;
     padding: 0;
     text-align: center;
   }
   .navbar {
-    margin: 0 !important; /* Avoid !important, added here for priority in snippet */
-    border-bottom: 0 !important;
+    height: 60px;
+  }
+  .nav-button span {
+   display: flex;
+  }
+  .nav-button li {
+    list-style: none;
+  }
+  .nav-button li a {
+    text-decoration: none;
+    padding-right: 10px;
+    padding-left: 10px;
   }
