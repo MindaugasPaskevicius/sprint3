@@ -1,0 +1,9 @@
+  .body-content {
+    background-color: white;
+    padding: 0;
+    text-align: center;
+  }
+  .navbar {
+    margin: 0 !important; /* Avoid !important, added here for priority in snippet */
+    border-bottom: 0 !important;
+  }

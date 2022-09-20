@@ -16,7 +16,7 @@ include 'app/update.php';
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Project Manager</title>
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -37,9 +37,9 @@ include 'app/update.php';
     <?php endif ?>
 
     <header>
-        <div class="shadow-container mr-2 ml-2">
-            <div class="body-content">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3 ">
+        <div>
+            <div>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <div>
                             <div class="dropdown mr-5 ">
@@ -53,11 +53,6 @@ include 'app/update.php';
                                 </ul>
                             </div>
                         </div>
-                        <form class="form-inline my-2 my-lg-0" action="" method="post" name="search_form">
-                            <input class="form-control mr-sm-2" type="text" name="search_box" value="" placeholder="<?php echo ($_GET['path'] === 'projects' ?  "Enter project's name" : "Enter employee's name"); ?>">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search1" value="Search">
-                                <?php echo ($_GET['path'] === 'projects' ?  "Search for project" : "Search for employee"); ?></button>
-                        </form>
 
                     </div>
                     <div class="float-end align-middle"><span class="align-middle text-primary ">PROJECT MANAGER</span></div>
@@ -146,7 +141,7 @@ include 'app/update.php';
 
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container mr-2 ml-2">
-            <span class="text-muted">Tadas Baltic Institute of technology 2021</span>
+            <span class="text-muted">Baltic Institute of technology 2022</span>
         </div>
     </footer>
 </body>
