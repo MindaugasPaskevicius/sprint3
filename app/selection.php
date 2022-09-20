@@ -6,7 +6,6 @@ if (isset($_GET['path']) and $_GET['path'] !== $table_name) {
     if ($_GET['path'] == 'employees' or $_GET['path'] == 'projects')
         $table_name = $_GET['path'];
 }
-// echo $table_name;
 
 #SELECT
 $sql =

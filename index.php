@@ -2,13 +2,11 @@
 session_start();
 include 'database/database.php';
 include 'app/selection.php';
-include 'app/save.php';
+include 'app/add.php';
 include 'app/delete.php';
 include 'app/search.php';
 include 'app/edit.php';
 include 'app/update.php';
-
-
 ?>
 
 <!DOCTYPE html>
@@ -19,14 +17,11 @@ include 'app/update.php';
     <title>Project Manager</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse">
                 <div class="nav-button">
                     <span>
@@ -35,15 +30,12 @@ include 'app/update.php';
                     </span>
                 </div>
             </div>
-            <div class="float-end align-middle"><span class="align-middle text-primary ">PROJECT MANAGER</span></div>
+            <div class="float-end align-middle"><h4 class="align-middle text-white">PROJECT MANAGER</h4></div>
         </nav>
     </header>
-   
-
     <main>
         <div class="container mt-5">
             <div class="row justify-content-left">
-
                 <form action="<?php ($_SERVER['REQUEST_URI']); ?>" method="post">
                     <?php if ($_GET['path'] == "employees" || $_GET['path'] == "") : ?>
                         <div class="form-group">
@@ -77,9 +69,9 @@ include 'app/update.php';
                     <div class="form-group">
 
                         <?php if ($update == true) : ?>
-                            <button class="btn btn-info" type="submit" name="update">Update</button>
+                            <button class="btn btn-light" type="submit" name="update">Update</button>
                         <?php else : ?>
-                            <button class="btn btn-primary" type="submit" name="save">Save</button>
+                            <button class="btn btn-light" type="submit" name="save">Add</button>
                         <?php endif; ?>
 
                     </div>
@@ -102,8 +94,8 @@ include 'app/update.php';
                     <td>" . $first_en . "</td>
                     <td>" . $second_en . "</td>
                     <td>
-                        <button><a href=\"?path=" . $table_name . "&delete=$id\">" . ($_GET['path'] === 'projects' ?  "DELETE PROJECT" : "DELETE EMPLOYEE") . "</a></button>
-                        <button><a href=\"?path=" . $table_name . "&edit=$id\">" . ($_GET['path'] === 'projects' ?  "EDIT PROJECT" : "EDIT EMPLOYEE") . "</a></button>
+                        <button class='btn-light'><a class='table-button' href=\"?path=" . $table_name . "&delete=$id\">" . ($_GET['path'] === 'projects' ?  "DELETE" : "DELETE") . "</a></button>
+                        <button class='btn-light'><a class='table-button' href=\"?path=" . $table_name . "&edit=$id\">" . ($_GET['path'] === 'projects' ?  "EDIT" : "EDIT") . "</a></button>
                     </td>
                 </tr>";
             }
@@ -118,9 +110,9 @@ include 'app/update.php';
         ?>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
+    <footer class="footer mt-auto py-3">
         <div class="container mr-2 ml-2">
-            <span class="text-muted">Baltic Institute of technology 2022</span>
+            <span class="text-white text-center">Kaunas 2022</span>
         </div>
     </footer>
 </body>

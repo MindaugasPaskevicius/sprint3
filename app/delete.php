@@ -6,8 +6,8 @@ if(isset($_GET['delete'])){
     $stmt = $conn->prepare($sql_delete);
     $stmt->execute();
     
-    $_SESSION['message'] = "Record has been deleted";
-    $_SESSION['msg_type'] = "danger";
+    //$_SESSION['message'] = "Record has been deleted";
+    //$_SESSION['msg_type'] = "danger";
 
     $stmt->close();
     mysqli_close($conn);

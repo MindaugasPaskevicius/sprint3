@@ -7,8 +7,8 @@ if (isset($_POST['save'])) {
     $stmt->bind_param("s", $_POST['name']);
     $stmt->execute();
     
-    $_SESSION['message'] = "Record has been saved";
-    $_SESSION['msg_type'] = 'success';
+    //$_SESSION['message'] = "Record has been saved";
+    //$_SESSION['msg_type'] = 'success';
    
     $stmt->close();
     mysqli_close($conn);
