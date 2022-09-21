@@ -7,6 +7,9 @@ include 'app/delete.php';
 include 'app/search.php';
 include 'app/edit.php';
 include 'app/update.php';
+
+$path = isset($_GET["path"]) ? './' . $_GET["path"] : './';
+
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +106,6 @@ include 'app/update.php';
         }
         ?>
     </main>
-
     <footer class="footer mt-auto py-3 text-center">
         <div class="container">
             <span class="text-white">Kaunas 2022</span>
