@@ -20,4 +20,4 @@ CREATE TABLE `projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
-INSERT INTO `projects` VALUES (1,'Research'),(2,'Finances'),(3,'Management'),(5,'Product'),(6,'Features'),(7,'Maintenance');
+INSERT INTO `projects` VALUES (1,'PHP'),(2,'Java'),(3,'Phyton'),(5,'React'),(6,'Laravel'),(7,'MySQL');

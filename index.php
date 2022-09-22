@@ -121,8 +121,8 @@ include 'app/update.php';
         }
         ?>
     </main>
-    <footer class="footer py-4 text-center">
-        <div class="">
+    <footer class="footer text-center">
+        <div class="pt-3 pb-3">
             <span class="text-white">Kaunas 2022</span>
         </div>
     </footer>
