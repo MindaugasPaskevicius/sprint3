@@ -8,7 +8,6 @@ include 'app/search.php';
 include 'app/edit.php';
 include 'app/update.php';
 
-$path = isset($_GET["path"]) ? './' . $_GET["path"] : './';
 
 ?>
 
@@ -38,11 +37,23 @@ $path = isset($_GET["path"]) ? './' . $_GET["path"] : './';
             </div>
         </nav>
     </header>
+
+    <?php
+
+    if (isset($_SESSION['message'])) : ?>
+        <div class="alert alert-<?= $_SESSION['msg_type'] ?>">
+            <?php
+            print $_SESSION['message'];
+            unset($_SESSION['message']);
+            ?>
+        </div>
+    <?php endif ?>
+
     <main>
         <div class="container mt-5">
             <div class="row justify-content-left">
                 <form action="<?php ($_SERVER['REQUEST_URI']); ?>" method="post">
-                    <?php if ($_GET['path'] == "employees" || $_GET['path'] == "") : ?>
+                    <?php if ($_GET['path'] == "./" || $_GET['path'] == "") : ?>
                         <div class="form-group">
                             <label for="name"><?php print(($update == true) ? ("<strong>Edit Employee</strong>") : ("<strong>Add Employee</strong>")); ?></label>
                             <div class="form-group d-flex">
@@ -69,9 +80,9 @@ $path = isset($_GET["path"]) ? './' . $_GET["path"] : './';
                     <?php endif; ?>
                     <div class="form-group">
                         <?php if ($update == true) : ?>
-                            <button class="btn btn-light" type="submit" name="update">Update</button>
+                            <button class="btn btn-warning" type="submit" name="update">Update</button>
                         <?php else : ?>
-                            <button class="btn btn-light" type="submit" name="save">Add</button>
+                            <button class="btn btn-warning" type="submit" name="save">Add</button>
                         <?php endif; ?>
                     </div>
                 </form>
@@ -86,7 +97,7 @@ $path = isset($_GET["path"]) ? './' . $_GET["path"] : './';
         $count = $stmt->num_rows;
         if ($count > 0) {
             while ($stmt->fetch()) {
-                echo "<tr>
+                print "<tr>
                     <td>" . $id . "</td>
                     <td>" . $first_en . "</td>
                     <td>" . $second_en . "</td>
@@ -106,8 +117,8 @@ $path = isset($_GET["path"]) ? './' . $_GET["path"] : './';
         }
         ?>
     </main>
-    <footer class="footer mt-auto py-3 text-center">
-        <div class="container">
+    <footer class="footer mt-auto py-4 text-center">
+        <div class="">
             <span class="text-white">Kaunas 2022</span>
         </div>
     </footer>
