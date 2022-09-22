@@ -13,7 +13,7 @@ if (isset($_POST['search1'])) {
         $search_term = $conn->real_escape_string($_POST['search_box']);
         $sql_search = "SELECT projects.id, projects.name, employees.name FROM projects LEFT JOIN employees ON employees.project_id = projects.id WHERE projects.name LIKE '%$search_term%'";
         $stmt = $conn->prepare($sql_search);
-        $stmt->bind_result($id, $first_en, $second_en); //binding by position
+        $stmt->bind_result($id, $first_en, $second_en); 
     }
 } else {
     $stmt = $conn->prepare($sql);

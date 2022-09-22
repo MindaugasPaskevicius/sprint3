@@ -2,7 +2,7 @@
 session_start();
 include 'database/database.php';
 include 'app/selection.php';
-include 'app/add.php';
+include 'app/save.php';
 include 'app/delete.php';
 include 'app/search.php';
 include 'app/edit.php';
@@ -19,6 +19,11 @@ include 'app/update.php';
     <title>Project Manager</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -39,11 +44,10 @@ include 'app/update.php';
     </header>
 
     <?php
-
     if (isset($_SESSION['message'])) : ?>
         <div class="alert alert-<?= $_SESSION['msg_type'] ?>">
             <?php
-            print $_SESSION['message'];
+            echo $_SESSION['message'];
             unset($_SESSION['message']);
             ?>
         </div>
@@ -53,36 +57,36 @@ include 'app/update.php';
         <div class="container mt-5">
             <div class="row justify-content-left">
                 <form action="<?php ($_SERVER['REQUEST_URI']); ?>" method="post">
-                    <?php if ($_GET['path'] == "./" || $_GET['path'] == "") : ?>
+                    <?php if ($_GET['path'] == "employees" || $_GET['path'] == "") : ?>
                         <div class="form-group">
-                            <label for="name"><?php print(($update == true) ? ("<strong>Edit Employee</strong>") : ("<strong>Add Employee</strong>")); ?></label>
+                            <label for="name"><?php echo (($update == true) ? ("<strong>Edit Employee</strong>") : ("<strong>Add Employee</strong>")); ?></label>
                             <div class="form-group d-flex">
-                                <input type="text" class="form-control" name="name" value="<?php print($update == true ? $first_en : ""); ?>" placeholder="Enter employee's name">
+                                <input type="text" class="form-control" name="name" value="<?php echo ($update == true ? $first_en : ""); ?>" placeholder="Enter employee's name">
                                 <?php
                                 if ($update) {
                                     $query = "SELECT projects.id, projects.name FROM projects";
                                     $res = mysqli_query($conn, $query) or die(mysqli_connect_error($query));
-                                    print("<select class='ml-5 custom-select' name='select_name'>");
-                                    print("<option value=''selected disabled>Projects</option>");
+                                    echo ("<select class='ml-5 custom-select' name='select_name'>");
+                                    echo ("<option value=''selected disabled>Projects</option>");
                                     while ($row = mysqli_fetch_array($res)) {
-                                        print "<option value=" . $row['id'] . ">" . $row['name'] . "</option>";
+                                        echo "<option value=" . $row['id'] . ">" . $row['name'] . "</option>";
                                     }
-                                    print("</select>");
+                                    echo ("</select>");
                                 }
                                 ?>
                             </div>
                         </div>
                     <?php else : ?>
                         <div class="form-group">
-                            <label for="name"><?php print(($update == true) ? ("<strong>Edit Project</strong>") : ("<strong>Add Project</strong>")); ?></label>
-                            <input type="text" class="form-control" value="<?php print($update == true ? $first_en : ""); ?>" name="name" placeholder="Enter project's name">
+                            <label for="name"><?php echo (($update == true) ? ("<strong>Edit Project</strong>") : ("<strong>Add Project</strong>")); ?></label>
+                            <input type="text" class="form-control" value="<?php echo ($update == true ? $first_en : ""); ?>" name="name" placeholder="Enter project's name">
                         </div>
                     <?php endif; ?>
                     <div class="form-group">
                         <?php if ($update == true) : ?>
                             <button class="btn btn-warning" type="submit" name="update">Update</button>
                         <?php else : ?>
-                            <button class="btn btn-warning" type="submit" name="save">Add</button>
+                            <button class="btn btn-warning" type="submit" name="save">Save</button>
                         <?php endif; ?>
                     </div>
                 </form>
@@ -97,13 +101,13 @@ include 'app/update.php';
         $count = $stmt->num_rows;
         if ($count > 0) {
             while ($stmt->fetch()) {
-                print "<tr>
+                echo "<tr>
                     <td>" . $id . "</td>
                     <td>" . $first_en . "</td>
                     <td>" . $second_en . "</td>
                     <td>
-                        <button class='btn-light'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&delete=$id\">" . ($_GET['path'] === 'projects' ?  "DELETE" : "DELETE") . "</a></button>
-                        <button class='btn-light'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&edit=$id\">" . ($_GET['path'] === 'projects' ?  "EDIT" : "EDIT") . "</a></button>
+                    <button class='btn-warning'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&delete=$id\">" . ($_GET['path'] === 'projects' ?  "DELETE" : "DELETE") . "</a></button>
+                    <button class='btn-warning'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&edit=$id\">" . ($_GET['path'] === 'projects' ?  "EDIT" : "EDIT") . "</a></button>
                     </td>
                 </tr>";
             }
@@ -111,13 +115,13 @@ include 'app/update.php';
             print('<br />');
             print('<br />');
         } else {
-            print("<tr>
+            echo ("<tr>
         <td>No data found</td></tr>");
             print('</table>');
         }
         ?>
     </main>
-    <footer class="footer mt-auto py-4 text-center">
+    <footer class="footer py-4 text-center">
         <div class="">
             <span class="text-white">Kaunas 2022</span>
         </div>
