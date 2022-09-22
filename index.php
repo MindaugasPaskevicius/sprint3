@@ -27,7 +27,7 @@ include 'app/update.php';
 </head>
 
 <body>
-    <header>
+    <header class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse">
                 <div class="nav-button">
@@ -45,7 +45,7 @@ include 'app/update.php';
 
     <?php
     if (isset($_SESSION['message'])) : ?>
-        <div class="alert alert-<?= $_SESSION['msg_type'] ?>">
+        <div class="marginass alert alert-<?= $_SESSION['msg_type'] ?>">
             <?php
             echo $_SESSION['message'];
             unset($_SESSION['message']);
@@ -54,7 +54,7 @@ include 'app/update.php';
     <?php endif ?>
 
     <main>
-        <div class="container mt-5">
+        <div class="marginas container">
             <div class="row justify-content-left">
                 <form action="<?php ($_SERVER['REQUEST_URI']); ?>" method="post">
                     <?php if ($_GET['path'] == "employees" || $_GET['path'] == "") : ?>
@@ -121,10 +121,8 @@ include 'app/update.php';
         }
         ?>
     </main>
-    <footer class="footer text-center">
-        <div class="pt-3 pb-3">
-            <span class="text-white">Kaunas 2022</span>
-        </div>
+    <footer class="footer text-center pt-3 pb-3">
+        <span class="text-white">Kaunas 2022</span>
     </footer>
 </body>
 
