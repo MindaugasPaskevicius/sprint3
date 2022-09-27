@@ -1,5 +1,5 @@
 <?php
-#SEARCH
+
 if (isset($_POST['search1'])) {
     if ($_GET['path'] == 'employees' || $_GET['path'] == "") {
 

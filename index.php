@@ -7,8 +7,6 @@ include 'app/delete.php';
 include 'app/search.php';
 include 'app/edit.php';
 include 'app/update.php';
-
-
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +20,6 @@ include 'app/update.php';
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
 </head>
 
 <body>
@@ -57,7 +53,7 @@ include 'app/update.php';
         <div class="marginas container">
             <div class="row justify-content-left">
                 <form action="<?php ($_SERVER['REQUEST_URI']); ?>" method="post">
-                    <?php if ($_GET['path'] == "employees" || $_GET['path'] == "") : ?>
+                    <?php if (isset($_GET['path']) AND ($_GET['path'] == "employees" || $_GET['path'] == "")) : ?>
                         <div class="form-group">
                             <label for="name"><?php echo (($update == true) ? ("<strong>Edit Employee</strong>") : ("<strong>Add Employee</strong>")); ?></label>
                             <div class="form-group d-flex">
@@ -94,7 +90,7 @@ include 'app/update.php';
         </div>
         <?php
 
-        print('<div class="container mt-5"><table class="table"><thead><tr><th>ID</th><th>' . ($_GET['path'] === 'projects' ?  "Project's Name" : "Employee's Name") . '</th><th>' . ($_GET['path'] === 'projects' ?  "Employee's Name" : "Project's Name") . '</th><th>Action</th>');
+        print('<div class="container mt-5"><table class="table"><thead><tr><th>ID</th><th>' . (isset($_GET['path']) && $_GET['path'] === 'projects' ?  "Project's Name" : "Employee's Name") . '</th><th>' . (isset($_GET['path']) && $_GET['path'] === 'projects' ?  "Employee's Name" : "Project's Name") . '</th><th>Action</th>');
 
         $stmt->execute();
         $stmt->store_result();
@@ -106,8 +102,8 @@ include 'app/update.php';
                     <td>" . $first_en . "</td>
                     <td>" . $second_en . "</td>
                     <td>
-                    <button class='btn-warning'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&delete=$id\">" . ($_GET['path'] === 'projects' ?  "DELETE" : "DELETE") . "</a></button>
-                    <button class='btn-warning'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&edit=$id\">" . ($_GET['path'] === 'projects' ?  "EDIT" : "EDIT") . "</a></button>
+                    <button class='btn-warning'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&delete=$id\">" . (isset($_GET['path']) && $_GET['path'] === 'projects' ?  "DELETE" : "DELETE") . "</a></button>
+                    <button class='btn-warning'><a class='table-button' style='text-decoration:none' href=\"?path=" . $table_name . "&edit=$id\">" . (isset($_GET['path']) &&  $_GET['path'] === 'projects' ?  "EDIT" : "EDIT") . "</a></button>
                     </td>
                 </tr>";
             }
@@ -135,3 +131,4 @@ mysqli_close($conn);
 unset($_SESSION['msg_type']);
 session_destroy();
 ?>
+

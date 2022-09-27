@@ -1,5 +1,7 @@
 <?php
+
 #LOGIC TO SELECT THE TABLE
+
 $table_name = 'employees';
 
 if (isset($_GET['path']) and $_GET['path'] !== $table_name) {
@@ -8,6 +10,7 @@ if (isset($_GET['path']) and $_GET['path'] !== $table_name) {
 }
 
 #SELECT
+
 $sql =
     "SELECT "
     . $table_name . ".id, "
