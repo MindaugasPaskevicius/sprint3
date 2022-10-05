@@ -1,12 +1,12 @@
 <?php
 session_start();
-include 'database/database.php';
-include 'app/selection.php';
-include 'app/save.php';
-include 'app/delete.php';
-include 'app/search.php';
-include 'app/edit.php';
-include 'app/update.php';
+require_once 'database/database.php';
+require_once 'app/selection.php';
+require_once 'app/save.php';
+require_once 'app/delete.php';
+require_once 'app/search.php';
+require_once 'app/edit.php';
+require_once 'app/update.php';
 ?>
 
 <!DOCTYPE html>
